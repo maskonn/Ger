@@ -1,0 +1,30 @@
+from midiutil import MIDIFile
+
+midi = MIDIFile(1)
+track = 0
+time = 0
+tempo = 90
+channel = 0
+volume = 100
+duration = 1
+
+midi.addTempo(track, time, tempo)
+
+# Chords: Am, F, C, G
+chords = [
+    [57, 60, 64],  # A minor
+    [53, 57, 60],  # F major
+    [48, 52, 55],  # C major
+    [55, 59, 62],  # G major
+]
+
+for _ in range(2):
+    for chord in chords:
+        for note in chord:
+            midi.addNote(track, channel, note, time, duration * 4, volume)
+        time += 4
+
+with open("angry_heartbreak_beat.mid", "wb") as output_file:
+    midi.writeFile(output_file)
+
+print("Saved: angry_heartbreak_beat.mid")
